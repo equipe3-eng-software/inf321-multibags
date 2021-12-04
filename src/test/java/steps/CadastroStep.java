@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Map;
 
+import static org.junit.Assert.*;
+
 
 public class CadastroStep {
     private final String baseURL = "http://multibags.1dt.com.br/shop/customer/registration.html";
@@ -25,7 +27,7 @@ public class CadastroStep {
     private final String _email = "emailAddress";
     private final String _senha = "password";
     private final String _senha2 = "passwordAgain";
-    private final String _btnText = "create an account";
+    private final String btnClassName = "login-btn";
 
     @Dado("usuario acessou cadastro para criar nova conta")
     public void usuario_acessou_cadastro_para_criar_nova_conta() {
@@ -64,17 +66,20 @@ public class CadastroStep {
 
     @Quando("usuario submeter os dados")
     public void usuario_submeter_os_dados() {
-//        WebElement btnCriarConta = driver.findElement(By.linkText(_btnText));
-//        btnCriarConta.click();
+        WebElement btnCriarConta = driver.findElement(By.className(btnClassName));
+        btnCriarConta.click();
     }
 
     @Então("usuario o cadastro deve ter sido efetuado com sucesso")
     public void usuario_o_cadastro_deve_ter_sido_efetuado_com_sucesso() {
+        WebElement menuContainer = new WebDriverWait(driver, 30)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("customerAccount")));
+        assertEquals(true, menuContainer.isDisplayed());
     }
 
     @After()
     public void closeBrowser() {
-//        driver.quit();
+        driver.quit();
     }
 
 }
