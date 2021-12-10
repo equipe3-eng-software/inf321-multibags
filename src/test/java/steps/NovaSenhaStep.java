@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class NovaSenhaStep {
     private final WebDriver driver = new ChromeDriver();
@@ -82,8 +82,7 @@ public class NovaSenhaStep {
         Utils.waitForRedirectToFinish(driver);
         WebElement alertSuccess = new WebDriverWait(driver, 30)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("store.success")));
-        String msg = alertSuccess.getAttribute("innerHTML");
-        System.out.println(msg);
+        assertTrue(alertSuccess.isDisplayed());
     }
 
     @After()
